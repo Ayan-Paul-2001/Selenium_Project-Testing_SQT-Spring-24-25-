@@ -16,7 +16,7 @@
             height: 100vh;
         }
         .container {
-            width: 450px; /* Adjusted width */
+            width: 450px;
             background: #ffffff;
             padding: 20px;
             border-radius: 8px;
@@ -61,20 +61,22 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/en/8/8d/American_International_University-Bangladesh_%28AIUB%29_logo.png" alt="AIUB Logo">
+            <img src="American_International_University-Bangladesh_Monogram.svg.png" alt="AIUB Logo">
         </div>
         <h2>Registration Form</h2>
-        <form id="registrationForm"></form>
-            <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
-            <input type="text" id="userid" name="userid" placeholder="User ID" required>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <form id="registrationForm">
+            <input type="text" id="fullname" placeholder="Full Name" required>
+            <input type="text" id="userid" placeholder="User ID" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirm_password" placeholder="Confirm Password" required>
             <button type="button" onclick="validateForm()">Register</button>
             <button type="button" onclick="window.location.href='login.html'" style="margin-top: 10px;">Login</button>
         </form>
-        <script>
-            function validateForm() {
+    </div>
+
+    <script>
+        function validateForm() {
             const fullname = document.getElementById('fullname').value.trim();
             const userid = document.getElementById('userid').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -83,43 +85,43 @@
 
             let errors = [];
 
-            // Full Name validation
+            if (!fullname || !userid || !email || !password || !confirmPassword) {
+                errors.push("All fields are required.");
+            }
+
             if (!/^[A-Za-z\s]+$/.test(fullname)) {
                 errors.push("Full Name should only contain alphabets and spaces.");
             }
 
-            // User ID validation
             if (!/^[A-Za-z0-9@#$%^&+=]+$/.test(userid) || /\s/.test(userid)) {
                 errors.push("User ID should be alphanumeric and may include special characters, but no spaces.");
             }
 
-            // Email validation
             if (!/^\S+@\S+\.\S+$/.test(email)) {
                 errors.push("Email is not in a valid format.");
             }
 
-            // Password validation
             if (!/^\d{8,}$/.test(password)) {
-                errors.push("Password must be at least 8 characters long and contain only numeric values.");
+                errors.push("Password must be at least 8 digits and only numeric.");
             }
 
-            // Confirm Password validation
             if (password !== confirmPassword) {
-                errors.push("Password and Confirm Password do not match.");
-            }
-
-            // Check for blank fields
-            if (!fullname || !userid || !email || !password || !confirmPassword) {
-                errors.push("All fields are required.");
+                errors.push("Passwords do not match.");
             }
 
             if (errors.length > 0) {
                 alert(errors.join("\n"));
             } else {
+                const userData = {
+                    fullname: fullname,
+                    userid: userid,
+                    password: password
+                };
+                localStorage.setItem("userData", JSON.stringify(userData));
                 alert("Registration Successful.");
+                document.getElementById("registrationForm").reset();
             }
-            }
-        </script>
-    </div>
+        }
+    </script>
 </body>
 </html>

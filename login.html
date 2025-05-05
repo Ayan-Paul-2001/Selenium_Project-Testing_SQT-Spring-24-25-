@@ -26,6 +26,13 @@
             color: #333333;
             text-align: center;
         }
+        .logo {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .logo img {
+            width: 100px;
+        }
         .form-group {
             margin-bottom: 15px;
         }
@@ -58,30 +65,39 @@
 </head>
 <body>
     <div class="login-container">
+        <div class="logo">
+            <img src="American_International_University-Bangladesh_Monogram.svg.png" alt="AIUB Logo">
+        </div>
         <h2>Login</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username">User ID</label>
+                <input type="text" id="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" required>
             </div>
             <button type="button" class="login-btn" onclick="handleLogin()">Login</button>
-            
         </form>
     </div>
 
     <script>
         function handleLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const storedData = JSON.parse(localStorage.getItem("userData"));
+            const inputUser = document.getElementById("username").value.trim();
+            const inputPass = document.getElementById("password").value.trim();
 
-            if (username && password) {
-                alert(`Welcome, ${username}!`);
+            if (!inputUser || !inputPass) {
+                alert("Please fill in both fields.");
+                return;
+            }
+
+            if (storedData && inputUser === storedData.userid && inputPass === storedData.password) {
+                sessionStorage.setItem("fullname", storedData.fullname);
+                window.location.href = "welcome.html";
             } else {
-                alert('Please fill in both fields.');
+                alert("Invalid username or password.");
             }
         }
     </script>

@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome</title>
 </head>
 <body>
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 24px; font-weight: bold;">
-        Hello, (full name of the User)..
+    <div id="welcomeMessage" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 24px; font-weight: bold;">
     </div>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to right, #5ffffc, #fef57b);
+            color: rgb(13, 13, 13);
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+        }
+       
+        #welcomeImage {
+            padding-top: 40px;
+            max-width: 200px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+    <img id="welcomeImage" src="./images.jpeg" alt="Welcome Image">
+
+    <script>
+        const fullName = sessionStorage.getItem("fullname");
+        if (fullName) {
+            document.getElementById("welcomeMessage").textContent = `Hello, ${fullName}!   Welcome To Our SQT Testing Website!`;
+           
+        } else {
+            document.getElementById("welcomeMessage").textContent = "Access Denied!";
+        }
+    </script>
 </body>
 </html>
