@@ -28,7 +28,15 @@
             transform: translateX(-50%);
         }
     </style>
-    <img id="welcomeImage" src="./images.jpeg" alt="Welcome Image">
+    <img id="welcomeImage" src="./f7680972-4d0d-4e15-8df1-a3b9007a9717.jpg" alt="Welcome Image">
+    <button id="logoutButton" style="position: absolute; top: 10px; right: 20px; padding: 10px 20px; background-color: #ff4d4d; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 20px;">Logout</button>
+
+    <script>
+        document.getElementById("logoutButton").addEventListener("click", function() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        });
+    </script>
 
     <script>
         const fullName = sessionStorage.getItem("fullname");
